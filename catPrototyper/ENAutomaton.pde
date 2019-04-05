@@ -1,11 +1,11 @@
-class ElementaryAutomaton extends Automaton {
+class ENAutomaton extends Automaton {
   int size, iterCount;
-  short rule;
+  long rule;
   int[][] cells;
   
   int currentIteration;
   
-  ElementaryAutomaton(short rule, int startConfig){
+  ENAutomaton(long rule, int startConfig){
     this.size = 200;
     this.rule = rule;
     this.iterCount = 200;
@@ -47,16 +47,20 @@ class ElementaryAutomaton extends Automaton {
   }
   
   void iterate(){
-    int active = 0;
+    long active = 0;
     
     int count;
     
     this.currentIteration++;
     if (this.currentIteration < this.iterCount){
       for (int i = 0; i < this.size; i++){
-        count = 4 * cells[this.currentIteration-1][mod(i-1, size)] + 2 * cells[this.currentIteration-1][i] + cells[this.currentIteration-1][mod(i+1, size)];
+        count = 16 * cells[this.currentIteration-1][mod(i-2, size)]
+               + 8 * cells[this.currentIteration-1][mod(i-1, size)]
+               + 4 * cells[this.currentIteration-1][i] 
+               + 2 * cells[this.currentIteration-1][mod(i+1, size)]
+               + 1 * cells[this.currentIteration-1][mod(i+2, size)];
         active = (this.rule >> count) & 1;
-        if (active == 1){ //<>//
+        if (active == 1){
           this.cells[this.currentIteration][i] = 1;
         }
       }
