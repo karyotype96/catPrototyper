@@ -25,14 +25,14 @@
 */
 
 Automaton aut;
-final color[] colors = {#000000, #00FF00};
+final color[] colors = {#00FFFF, #000000};
 final color[] hodgepodgeColors = gradient(colors[0], colors[1], 201);
 
 void setup(){
   size(1600, 800);
   // aut = new ElementaryAutomaton((short)60, FULLY_RANDOM);
   // aut = new ENAutomaton(90918187261L, FULLY_RANDOM);
-  // aut = new LifelikeAutomaton("B3/S012345678", RANDOM_CENTER_5X5);
+  // aut = new LifelikeAutomaton("B3/S23", FULLY_RANDOM);
   aut = new HodgepodgeMachine(200, 3, 3, 28);
   noSmooth();
 }
@@ -46,4 +46,10 @@ void draw(){
 void keyPressed(){
   if (key == ' ')
     aut.iterate();
+  if (key == '1' && !(aut instanceof HodgepodgeMachine))
+    aut.reset_board(CENTER_PIXEL);
+  if (key == '2' && !(aut instanceof HodgepodgeMachine))
+    aut.reset_board(FULLY_RANDOM);
+  if (key == '3' && !(aut instanceof HodgepodgeMachine))
+    aut.reset_board(RANDOM_CENTER_5X5);
 }

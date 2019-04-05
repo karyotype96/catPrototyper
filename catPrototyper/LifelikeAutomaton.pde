@@ -74,7 +74,7 @@ class LifelikeAutomaton extends Automaton {
     }
     
     if (startConfig == CENTER_PIXEL){
-      this.cells[this.hsize][this.wsize] = 1;
+      this.cells[this.hsize / 2][this.wsize / 2] = 1;
     } else if (startConfig == FULLY_RANDOM){
       for (int row = 0; row < this.hsize; row++){
         for (int col = 0; col < this.wsize; col++){
