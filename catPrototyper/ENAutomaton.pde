@@ -1,3 +1,18 @@
+/*
+  Extended Neighborhood
+
+  How it works: The extended neighborhood automaton is 1-dimensional, and it is
+  defined similarly to the elementary automaton above. The catch is that the cell's
+  neighborhood is of a larger size; whereas the elementary automaton's neighborhood
+  is of size 3, we can say the EN automaton's neighborhood is size N, where N is some
+  number where N = (b * 2) + 1. The number of possible cell states in a neighborhood
+  of size N is 2^N, and the number of possible rules is 2^(2^N). For instance, if the
+  neighborhood size N = 3, then there are 2^3 = 8 possible neighborhood configurations,
+  and there are 2^8 = 256 possible rules. Likewise, if N = 5, then the number of
+  possible cell states is 2^5 = 32, and the number of possible rules is 2^32 = 
+  4,294,967,296 (oh, snap!).
+*/
+
 class ENAutomaton extends Automaton {
   int size, iterCount;
   long rule;
@@ -6,9 +21,9 @@ class ENAutomaton extends Automaton {
   int currentIteration;
   
   ENAutomaton(long rule, int startConfig){
-    this.size = 200;
+    this.size = width / 4;
     this.rule = rule;
-    this.iterCount = 200;
+    this.iterCount = height / 4;
     
     this.cells = new int[iterCount][size];
     

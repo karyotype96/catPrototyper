@@ -1,3 +1,28 @@
+/*
+  Elementary Automaton
+
+  How it works: The elementary automaton is 1-dimensional, and each cell can be
+  in one of two states - on (1), or off (0). In each subsequent generation, the
+  state of a cell at position i is determined by the states of cells i-1, i, and
+  i+1 in the previous generation. The rule used is defined by an 8-bit number
+  (0-255). Each bit will determine if a cell is on corresponding to the previous
+  cell states in the neighborhood:
+  
+  111  110  101  100  011  010  001  000
+   b7   b6   b5   b4   b3   b2   b1   b0
+   
+  For instance, in rule 30: (30 in base 2 is 00011110)
+  
+  111 110 101 100 011 010 001 000
+   0   0   0   1   1   1   1   0
+      
+  This means that the cell is on if the previous states within the cell's
+  neighborhood are:
+  - 100, 011, 010, 001
+  
+  A few rules of interest include Rules 30 and 110.
+*/
+
 class ElementaryAutomaton extends Automaton {
   int size, iterCount;
   short rule;
@@ -6,9 +31,9 @@ class ElementaryAutomaton extends Automaton {
   int currentIteration;
   
   ElementaryAutomaton(short rule, int startConfig){
-    this.size = 200;
+    this.size = width / 4;
     this.rule = rule;
-    this.iterCount = 200;
+    this.iterCount = height / 4;
     
     this.cells = new int[iterCount][size];
     

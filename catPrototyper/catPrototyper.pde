@@ -25,19 +25,22 @@
 */
 
 Automaton aut;
-final color[] colors = {#005000, #00FF00};
+final color[] colors = {#000000, #00FF00};
+final color[] hodgepodgeColors = gradient(colors[0], colors[1], 201);
 
 void setup(){
-  size(800, 800);
+  size(1600, 800);
   // aut = new ElementaryAutomaton((short)60, FULLY_RANDOM);
-  // aut = new ENAutomaton(2837281162L, FULLY_RANDOM);
-  aut = new LifelikeAutomaton("B2/S", RANDOM_CENTER_5X5);
+  // aut = new ENAutomaton(90918187261L, FULLY_RANDOM);
+  // aut = new LifelikeAutomaton("B3/S012345678", RANDOM_CENTER_5X5);
+  aut = new HodgepodgeMachine(200, 3, 3, 28);
   noSmooth();
 }
 
 void draw(){
   background(0);
-  aut.render(colors);
+  // aut.render(colors);
+  aut.render(hodgepodgeColors);
 }
 
 void keyPressed(){
