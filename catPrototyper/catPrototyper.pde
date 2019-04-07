@@ -24,32 +24,46 @@
     
 */
 
+final int hodgepodgeCount = 200;
+
 Automaton aut;
-final color[] colors = {#00FFFF, #000000};
-final color[] hodgepodgeColors = gradient(colors[0], colors[1], 201);
+final color[] colors = {#000000, #FF0000};
+final color[] hodgepodgeColors = gradient(colors[0], colors[1], hodgepodgeCount+1);
+final color[] rpsColors = {#FF0000, #00FF00, #0000FF};
 
 void setup(){
   size(1600, 800);
-  // aut = new ElementaryAutomaton((short)60, FULLY_RANDOM);
+  // aut = new ElementaryAutomaton((short)60, CENTER_PIXEL);
   // aut = new ENAutomaton(90918187261L, FULLY_RANDOM);
-  // aut = new LifelikeAutomaton("B3/S23", FULLY_RANDOM);
-  aut = new HodgepodgeMachine(200, 3, 3, 28);
+  // aut = new LifelikeAutomaton("B3/S123678", FULLY_RANDOM);
+  aut = new HodgepodgeMachine(hodgepodgeCount, 3, 3, 28);
+  // aut = new RPSAutomaton(2, 2);
   noSmooth();
 }
 
 void draw(){
   background(0);
-  // aut.render(colors);
-  aut.render(hodgepodgeColors);
+  if (aut instanceof HodgepodgeMachine)
+    aut.render(hodgepodgeColors);
+  else if (aut instanceof RPSAutomaton)
+    aut.render(rpsColors);
+  else
+    aut.render(colors);
 }
 
 void keyPressed(){
   if (key == ' ')
     aut.iterate();
-  if (key == '1' && !(aut instanceof HodgepodgeMachine))
-    aut.reset_board(CENTER_PIXEL);
-  if (key == '2' && !(aut instanceof HodgepodgeMachine))
-    aut.reset_board(FULLY_RANDOM);
-  if (key == '3' && !(aut instanceof HodgepodgeMachine))
-    aut.reset_board(RANDOM_CENTER_5X5);
+  else if (key == '1' || key == '2' || key == '3'){
+    if (!((aut instanceof HodgepodgeMachine) || (aut instanceof RPSAutomaton))){
+      if (key == '1' && !(aut instanceof HodgepodgeMachine))
+        aut.reset_board(CENTER_PIXEL);
+      if (key == '2' && !(aut instanceof HodgepodgeMachine))
+        aut.reset_board(FULLY_RANDOM);
+      if (key == '3' && !(aut instanceof HodgepodgeMachine))
+        aut.reset_board(RANDOM_CENTER_5X5);
+    } else {
+      aut.reset_board();
+    }
+  }
 }

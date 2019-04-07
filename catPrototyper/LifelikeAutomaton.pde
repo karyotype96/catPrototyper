@@ -104,7 +104,7 @@ class LifelikeAutomaton extends Automaton {
     for (int row = 0; row < this.hsize; row++){
       for (int col = 0; col < this.wsize; col++){
         total = this.cells[mod(row-1, this.hsize)][mod(col-1, this.wsize)]
-              + this.cells[mod(row-1, this.hsize)][mod(col,   this.wsize)]
+              + this.cells[mod(row-1, this.hsize)][mod(col  , this.wsize)]
               + this.cells[mod(row-1, this.hsize)][mod(col+1, this.wsize)]
               + this.cells[mod(row  , this.hsize)][mod(col-1, this.wsize)]
               + this.cells[mod(row  , this.hsize)][mod(col+1, this.wsize)]

@@ -60,7 +60,7 @@ class ElementaryAutomaton extends Automaton {
     }
     
     if (startConfig == CENTER_PIXEL){
-      this.cells[0][size / 2] = 1;
+      this.cells[0][this.size / 2] = 1;
     } else if (startConfig == FULLY_RANDOM){
       for (int i = 0; i < this.size; i++){
         this.cells[0][i] = floor(random(2));
