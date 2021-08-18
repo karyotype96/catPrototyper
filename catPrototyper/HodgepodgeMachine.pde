@@ -114,7 +114,21 @@ class HodgepodgeMachine extends Automaton {
       for (int col = 0; col < this.wsize; col++){
         noStroke();
         fill(colors[this.cells[row][col]]);
-        rect(col * 4, row * 4, 4, 4);
+        rect(col * multiplier, row * multiplier, multiplier, multiplier);
+      }
+    }
+  }
+  
+  void renderRainbow(){
+    for (int row = 0; row < this.hsize; row++){
+      for (int col = 0; col < this.wsize; col++){
+        noStroke();
+        
+        colorMode(HSB, 100);
+        
+        color fillColor = color(map(this.cells[row][col], 0, this.stateCount, 0, 100), 70, 100);
+        fill(fillColor);
+        rect(col * multiplier, row * multiplier, multiplier, multiplier);
       }
     }
   }

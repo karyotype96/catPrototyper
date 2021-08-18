@@ -18,4 +18,8 @@ abstract class Automaton {
   void render(color[] colors){
     
   }
+  
+  void renderRainbow(){
+    
+  }
 }

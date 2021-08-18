@@ -31,9 +31,9 @@ class ElementaryAutomaton extends Automaton {
   int currentIteration;
   
   ElementaryAutomaton(short rule, int startConfig){
-    this.size = width / 4;
+    this.size = width / multiplier;
     this.rule = rule;
-    this.iterCount = height / 4;
+    this.iterCount = height / multiplier;
     
     this.cells = new int[iterCount][size];
     
@@ -93,7 +93,21 @@ class ElementaryAutomaton extends Automaton {
       for (int col = 0; col < this.iterCount; col++){
         noStroke();
         fill(colors[this.cells[col][row]]);
-        rect(row * 4, col * 4, 4, 4);
+        rect(row * multiplier, col * multiplier, multiplier, multiplier);
+      }
+    }
+  }
+  
+  void renderRainbow(){
+    for (int row = 0; row < this.size; row++){
+      for (int col = 0; col < this.iterCount; col++){
+        noStroke();
+        
+        colorMode(HSB, 100);
+        
+        color fillColor = (this.cells[col][row] == 1) ? color(col / 2 % 100, 70, 100) : color(0, 0, 0);
+        fill(fillColor);
+        rect(row * multiplier, col * multiplier, multiplier, multiplier);
       }
     }
   }

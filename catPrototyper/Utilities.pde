@@ -18,3 +18,25 @@ color[] gradient(color c1, color c2, int stepCount){
   
   return colorList;
 }
+
+color[] listGradient(int[] colors, int[] positions, int stepCount){
+  color[] colorGradient = new color[stepCount];
+  
+  int colorIndex = 1;
+  
+  for (int i = 0; i < stepCount; i++){
+    color c1 = colors[colorIndex-1];
+    color c2 = colors[colorIndex];
+    
+    color toEnter = lerpColor(c1, c2, (float)(i - positions[colorIndex-1]) / (positions[colorIndex] - positions[colorIndex-1]));
+    
+    colorGradient[i] = toEnter;
+    
+    if (positions[colorIndex] == i){
+      colorIndex++;
+    }
+    
+  }
+  
+  return colorGradient;
+}

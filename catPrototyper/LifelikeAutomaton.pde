@@ -21,8 +21,8 @@ class LifelikeAutomaton extends Automaton {
   int[][] cells;
   
   LifelikeAutomaton(String rule, int startConfig){
-    this.wsize = width / 4;
-    this.hsize = height / 4;
+    this.wsize = width / multiplier;
+    this.hsize = height / multiplier;
     
     String[] splitStr = rule.split("/");
     splitStr[0] = splitStr[0].substring(1, splitStr[0].length());
@@ -127,7 +127,23 @@ class LifelikeAutomaton extends Automaton {
       for (int col = 0; col < this.wsize; col++){
         noStroke();
         fill(colors[this.cells[row][col]]);
-        rect(col * 4, row * 4, 4, 4);
+        rect(col * multiplier, row * multiplier, multiplier, multiplier);
+      }
+    }
+  }
+  
+  void renderRainbow(){
+    for (int row = 0; row < this.hsize; row++){
+      for (int col = 0; col < this.wsize; col++){
+        noStroke();
+        
+        colorMode(HSB, 100);
+        
+        color fillColor = (this.cells[row][col] == 1) ? color(row / 2 % 100, 70, 100) : color(0, 0, 0);
+        fill(fillColor);
+        if (this.cells[row][col] == 1){
+          rect(col * multiplier, row * multiplier, multiplier, multiplier);
+        }
       }
     }
   }

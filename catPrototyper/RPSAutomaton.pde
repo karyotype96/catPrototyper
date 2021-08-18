@@ -1,4 +1,6 @@
 /*
+  Rock-paper-scissors
+
   How it works: I'm going to assume that you already know how RPS works. Well,
   the RPS automaton runs on the same principle - a cell can be in one of three
   states, which are rock, paper, and scissors. For each cell, its next state
@@ -31,8 +33,8 @@ class RPSAutomaton extends Automaton {
   int[][] cells;
   
   RPSAutomaton(int threshold, int random) {
-    this.wsize = width / 4;
-    this.hsize = width / 4;
+    this.wsize = width / multiplier;
+    this.hsize = width / multiplier;
     this.cells = new int[hsize][wsize];
     this.threshold = threshold;
     this.random = random;
@@ -91,7 +93,7 @@ class RPSAutomaton extends Automaton {
       for (int col = 0; col < this.wsize; col++){
         noStroke();
         fill(colors[this.cells[row][col]]);
-        rect(col * 4, row * 4, 4, 4);
+        rect(col * multiplier, row * multiplier, multiplier, multiplier);
       }
     }
   }

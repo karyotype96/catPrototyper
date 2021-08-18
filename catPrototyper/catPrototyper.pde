@@ -26,34 +26,68 @@
 
 final int hodgepodgeCount = 200;
 
+final int speed = 8; // number of times to iterate the automaton before updating the display
+final int multiplier = 4; // optimal multiplier is 4
+
+boolean autoAdvance = true; // if true, will advance without space bar input
+
+// will show in rainbow colors if set to true.
+// otherwise, it uses the colors shown below.
+// works on all except RPS automaton.
+// cute, right? :D
+final boolean rainbow = false;
+
 Automaton aut;
-final color[] colors = {#000000, #FF0000};
+final color[] colors = {#000000, #00FFFF};
 final color[] hodgepodgeColors = gradient(colors[0], colors[1], hodgepodgeCount+1);
 final color[] rpsColors = {#FF0000, #00FF00, #0000FF};
+final color[] yyfColors = listGradient(new color[]{#000000, #FF0000, #FFFFFF}, new int[]{0, 50, 63}, 64);
 
 void setup(){
   size(1600, 800);
-  // aut = new ElementaryAutomaton((short)60, CENTER_PIXEL);
+  // aut = new ElementaryAutomaton((short)26, CENTER_PIXEL);
+  // aut = new SwitcherAutomaton(new short[]{214}, CENTER_PIXEL);
   // aut = new ENAutomaton(90918187261L, FULLY_RANDOM);
-  // aut = new LifelikeAutomaton("B3/S123678", FULLY_RANDOM);
-  aut = new HodgepodgeMachine(hodgepodgeCount, 3, 3, 28);
+  // aut = new LifelikeAutomaton("B4678/S35678", FULLY_RANDOM);
+  // aut = new HodgepodgeMachine(hodgepodgeCount, 3, 3, 28);
   // aut = new RPSAutomaton(2, 2);
+  aut = new YinYangFire(64);
   noSmooth();
-}
+}  
 
 void draw(){
   background(0);
-  if (aut instanceof HodgepodgeMachine)
-    aut.render(hodgepodgeColors);
-  else if (aut instanceof RPSAutomaton)
+  
+  if (autoAdvance){
+    for (int i = 0; i < speed; i++){
+      aut.iterate();
+    }
+  }
+  
+  if (aut instanceof HodgepodgeMachine) {
+    if (rainbow){
+      aut.renderRainbow();
+    } else {
+      aut.render(hodgepodgeColors);
+    }
+  } else if (aut instanceof RPSAutomaton) {
     aut.render(rpsColors);
-  else
-    aut.render(colors);
+  } else if (aut instanceof YinYangFire){
+    aut.render(yyfColors);
+  } else {
+    if (rainbow){
+      aut.renderRainbow();
+    } else {
+      aut.render(colors);
+    }
+  }
 }
 
 void keyPressed(){
   if (key == ' ')
-    aut.iterate();
+    for (int i = 0; i < speed; i++){
+      aut.iterate();
+    }
   else if (key == '1' || key == '2' || key == '3'){
     if (!((aut instanceof HodgepodgeMachine) || (aut instanceof RPSAutomaton))){
       if (key == '1' && !(aut instanceof HodgepodgeMachine))
